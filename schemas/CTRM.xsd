@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 rel. 3 (http://www.altova.com) by Swaroop Chalasani (FAIR ISAAC CORPORATION ROSEDALE CORPORATION  PLAZA) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
+	<xs:element name="CTRM">
+		<xs:annotation>
+			<xs:documentation>Trading and Risk Management (Root)</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OrderBook">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="PhysicalTrade" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="DerivativeTrade" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Products">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="Product"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Facilities">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="Facility"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CorporateGroup">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="CorporateUnit"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="MarketData">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="FinancialInstrument"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ProcurementPlans">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="ProcurementPlan"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Inventory"/>
+				<xs:element name="PriceQuotes"/>
+				<xs:element ref="RiskManagement"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Product">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ProductName"/>
+				<xs:element name="ProductCategory"/>
+				<xs:element name="ProductQuantityUnit"/>
+				<xs:element name="AssetClass"/>
+				<xs:element name="ProductOrigin"/>
+				<xs:element name="ManufacturedDate" type="xs:date"/>
+				<xs:element name="ApplicableAttributes" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="Attribute"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ApplicablePDSchedules">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PDSchedule">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="PDScheduleName"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ApplicableQualities">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Quality">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="QualityName"/>
+										<xs:element name="ApplicableAttributes">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element ref="Attribute"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ValuationInstrument">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="FinancialInstrument"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Facility">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Warehouse">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="WarehouseName"/>
+							<xs:element name="Accounting">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="WarehouseQuotation">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element ref="Product"/>
+													<xs:element name="Quality"/>
+													<xs:element name="CostComponents">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="CostComponent">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="CostComponentName"/>
+																			<xs:element name="CostComponentValue"/>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Plant">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PlantName"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PhysicalTrade">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Id"/>
+				<xs:element name="Version"/>
+				<xs:element name="IsActive" type="xs:boolean"/>
+				<xs:element name="ContractDetail">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="BuyOrSellType"/>
+							<xs:element name="MasterContractName"/>
+							<xs:element name="ClientReferenceNumber"/>
+							<xs:element name="OrderDate" type="xs:date"/>
+							<xs:element ref="CorporateUnit"/>
+							<xs:element name="StrategyName"/>
+							<xs:element name="TraderName"/>
+							<xs:element name="FrightTerm"/>
+							<xs:element name="INCOTerm"/>
+							<xs:element name="PaymentTerm"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ContractItem">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="Product"/>
+							<xs:element name="QuantityDetail">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ItemQuantityType"/>
+										<xs:element name="ItemQuantity"/>
+										<xs:element name="OpenQuantity"/>
+										<xs:element name="OpenQuantityUnit"/>
+										<xs:element name="ItemQuantityUnit"/>
+										<xs:element name="LowerTolerance"/>
+										<xs:element name="UpperTolerance"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="PriceDetail">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="PayInCurrency"/>
+										<xs:element name="MultiGradeDifferential"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="DeliveryDetail">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="LoadingLocationType"/>
+										<xs:element name="DestinationLocationType"/>
+										<xs:element name="DeliveryPeriods">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="DeliveryPeriod">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="ShipmentPeriodFrom"/>
+																<xs:element name="ShipmentPeriodTo"/>
+																<xs:element name="ArrivalDateFrom"/>
+																<xs:element name="ArrivalDateTo"/>
+																<xs:element name="TransitDays"/>
+																<xs:element name="ShippedIn"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CounterParties">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="CounterParty" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="LogisticActivities">
+					<xs:complexType>
+						<xs:sequence/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Accounting">
+					<xs:complexType>
+						<xs:sequence/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DerivativeTrade">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Id"/>
+				<xs:element name="Version"/>
+				<xs:element name="IsActive"/>
+				<xs:element name="OrderDate" type="xs:date"/>
+				<xs:element ref="FinancialInstrument"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CorporateUnit">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="BaseCurrency"/>
+				<xs:element name="CorporateUnitName"/>
+				<xs:element name="IsProfitCenter"/>
+				<xs:element name="EODMeasures"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FinancialInstrument">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="InstrumentName"/>
+				<xs:element name="InstrumentType"/>
+				<xs:element name="ExchangeUnit"/>
+				<xs:element name="PriceAmountUnit"/>
+				<xs:element name="PricingData" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PriceDate" type="xs:dateTime"/>
+							<xs:element name="PriceAmount" type="xs:decimal"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProcurementPlan">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PlanName"/>
+				<xs:element name="PlanFrom" type="xs:date"/>
+				<xs:element name="PlanTo" type="xs:date"/>
+				<xs:element name="PlanItems">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PlanItem">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ItemName"/>
+										<xs:element ref="Product"/>
+										<xs:element ref="CorporateUnit"/>
+										<xs:element ref="Facility"/>
+										<xs:element name="ItemRequirementCurrency"/>
+										<xs:element name="QuantityUnit"/>
+										<xs:element name="ItemByPeriods">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="ItemByPeriod">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="PeriodFrom" type="xs:date"/>
+																<xs:element name="PeriodTo" type="xs:date"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BankAccount">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="BankAccountHolderName"/>
+				<xs:element name="RoutingNumber"/>
+				<xs:element name="SortCode"/>
+				<xs:element ref="AddressLocation"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AddressLocation">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="line1"/>
+				<xs:element name="line2"/>
+				<xs:element name="line3"/>
+				<xs:element name="city"/>
+				<xs:element name="state"/>
+				<xs:element name="country"/>
+				<xs:element name="postalCode"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Logistics">
+		<xs:complexType>
+			<xs:sequence/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RiskManagement">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OperationalRisk">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="OperationalRiskPolicy">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="CorporateUnit"/>
+										<xs:element name="RiskPolicyName"/>
+										<xs:element name="RiskMeasure"/>
+										<xs:element name="ValueType"/>
+										<xs:element name="Value"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="MarketRisk"/>
+				<xs:element name="CounteryPartyCreditRisk"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CounterParty">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BankAccount"/>
+				<xs:element name="CounterpartyName"/>
+				<xs:element name="CounterPartyType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Attribute">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AttributeName"/>
+				<xs:element name="AttributeValue"/>
+				<xs:element name="AttributeUnit"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
