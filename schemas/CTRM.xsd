@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
 	<xs:element name="CTRM">
 		<xs:annotation>
@@ -6,7 +5,62 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="OrderBook">
+				<xs:element name="OrganizationName" minOccurs="0"/>
+				<xs:element name="OrganizationStructures" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Users" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="User">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="UserName"/>
+													<xs:element name="ApplicableRoles">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element ref="Role"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Roles" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="Role"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="OganizationalUnits" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="CorporateUnit" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Products" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="Product" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Facilities" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="Facility" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="OrderBook" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element ref="PhysicalTrade" minOccurs="0" maxOccurs="unbounded"/>
@@ -14,64 +68,84 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="Products">
+				<xs:element name="MarketData" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element ref="Product"/>
+							<xs:element ref="FinancialInstrument" minOccurs="0"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="Facilities">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element ref="Facility"/>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="CorporateGroup">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element ref="CorporateUnit"/>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="MarketData">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element ref="FinancialInstrument"/>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="ProcurementPlans">
+				<xs:element name="ProcurementPlans" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element ref="ProcurementPlan"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="Inventory"/>
-				<xs:element name="PriceQuotes"/>
-				<xs:element ref="RiskManagement"/>
+				<xs:element name="Inventory" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="DiscreteStock" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="StockName"/>
+										<xs:element name="StockReferenceNumber"/>
+										<xs:element ref="Facility"/>
+										<xs:element ref="Product"/>
+										<xs:element ref="Quality"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Accounting" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ConsolidatedStocks"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="RiskManagement" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="OperationalRisk" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="RiskPolicy" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element ref="CorporateUnit"/>
+													<xs:element name="RiskPolicyName"/>
+													<xs:element name="RiskMeasure"/>
+													<xs:element name="ValueType"/>
+													<xs:element name="Value"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="MarketRisk" minOccurs="0"/>
+							<xs:element name="CreditRisk" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="Product">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ProductName"/>
-				<xs:element name="ProductCategory"/>
+				<xs:element name="Id"/>
+				<xs:element name="ProductName" minOccurs="0"/>
+				<xs:element name="ProductCategory" minOccurs="0"/>
+				<xs:element name="AssetClass" minOccurs="0"/>
+				<xs:element name="ProductOriginYear" minOccurs="0"/>
+				<xs:element name="ManufacturedDate" type="xs:date" minOccurs="0"/>
 				<xs:element name="ProductQuantityUnit"/>
-				<xs:element name="AssetClass"/>
-				<xs:element name="ProductOrigin"/>
-				<xs:element name="ManufacturedDate" type="xs:date"/>
-				<xs:element name="ApplicableAttributes" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element ref="Attribute"/>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="ApplicablePDSchedules">
+				<xs:element ref="ApplicableAttributes" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="ApplicablePDSchedules" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="PDSchedule">
@@ -84,27 +158,14 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="ApplicableQualities">
+				<xs:element name="ApplicableQualities" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="Quality">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="QualityName"/>
-										<xs:element name="ApplicableAttributes">
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element ref="Attribute"/>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
+							<xs:element ref="Quality"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="ValuationInstrument">
+				<xs:element name="ValuationInstrument" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element ref="FinancialInstrument"/>
@@ -116,8 +177,8 @@
 	</xs:element>
 	<xs:element name="Facility">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="Warehouse">
+			<xs:choice>
+				<xs:element name="Warehouse" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="WarehouseName"/>
@@ -129,20 +190,7 @@
 												<xs:sequence>
 													<xs:element ref="Product"/>
 													<xs:element name="Quality"/>
-													<xs:element name="CostComponents">
-														<xs:complexType>
-															<xs:sequence>
-																<xs:element name="CostComponent">
-																	<xs:complexType>
-																		<xs:sequence>
-																			<xs:element name="CostComponentName"/>
-																			<xs:element name="CostComponentValue"/>
-																		</xs:sequence>
-																	</xs:complexType>
-																</xs:element>
-															</xs:sequence>
-														</xs:complexType>
-													</xs:element>
+													<xs:element ref="CostComponents"/>
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
@@ -152,14 +200,14 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="Plant">
+				<xs:element name="Plant" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="PlantName"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-			</xs:sequence>
+			</xs:choice>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PhysicalTrade">
@@ -252,7 +300,9 @@
 				</xs:element>
 				<xs:element name="Accounting">
 					<xs:complexType>
-						<xs:sequence/>
+						<xs:sequence>
+							<xs:element ref="CostComponents"/>
+						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
@@ -276,13 +326,14 @@
 				<xs:element name="CorporateUnitName"/>
 				<xs:element name="IsProfitCenter"/>
 				<xs:element name="EODMeasures"/>
+				<xs:element ref="AddressLocation"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="FinancialInstrument">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="InstrumentName"/>
+				<xs:element name="InstrumentName" minOccurs="0"/>
 				<xs:element name="InstrumentType"/>
 				<xs:element name="ExchangeUnit"/>
 				<xs:element name="PriceAmountUnit"/>
@@ -291,6 +342,7 @@
 						<xs:sequence>
 							<xs:element name="PriceDate" type="xs:dateTime"/>
 							<xs:element name="PriceAmount" type="xs:decimal"/>
+							<xs:element name="PriceSource"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -301,34 +353,43 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="PlanName"/>
-				<xs:element name="PlanFrom" type="xs:date"/>
-				<xs:element name="PlanTo" type="xs:date"/>
+				<xs:element name="Version"/>
+				<xs:element name="isActive"/>
+				<xs:element name="PlanFromDate" type="xs:date"/>
+				<xs:element name="PlanThruDate" type="xs:date"/>
 				<xs:element name="PlanItems">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="PlanItem">
+							<xs:element name="PlanItem" maxOccurs="unbounded">
 								<xs:complexType>
 									<xs:sequence>
 										<xs:element name="ItemName"/>
 										<xs:element ref="Product"/>
 										<xs:element ref="CorporateUnit"/>
 										<xs:element ref="Facility"/>
-										<xs:element name="ItemRequirementCurrency"/>
-										<xs:element name="QuantityUnit"/>
+										<xs:element name="ItemCurrency"/>
 										<xs:element name="ItemByPeriods">
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="ItemByPeriod">
+													<xs:element name="ItemByPeriod" maxOccurs="unbounded">
 														<xs:complexType>
 															<xs:sequence>
 																<xs:element name="PeriodFrom" type="xs:date"/>
 																<xs:element name="PeriodTo" type="xs:date"/>
+																<xs:element name="RequiredQuantity"/>
+																<xs:element name="RequiredQuantityUnit"/>
+																<xs:element name="PriceAmount"/>
+																<xs:element name="PriceUnit"/>
+																<xs:element name="TotalValueAmount"/>
+																<xs:element name="TotalValueAmountCurrency"/>
+																<xs:element ref="CostComponents"/>
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
+										<xs:element name="BuyingAuthority"/>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
@@ -366,31 +427,6 @@
 			<xs:sequence/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="RiskManagement">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="OperationalRisk">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="OperationalRiskPolicy">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element ref="CorporateUnit"/>
-										<xs:element name="RiskPolicyName"/>
-										<xs:element name="RiskMeasure"/>
-										<xs:element name="ValueType"/>
-										<xs:element name="Value"/>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="MarketRisk"/>
-				<xs:element name="CounteryPartyCreditRisk"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="CounterParty">
 		<xs:complexType>
 			<xs:sequence>
@@ -406,6 +442,43 @@
 				<xs:element name="AttributeName"/>
 				<xs:element name="AttributeValue"/>
 				<xs:element name="AttributeUnit"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CostComponents">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CostComponent" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CostComponentName"/>
+							<xs:element name="CostComponentValue"/>
+							<xs:element name="CostComponentValueUnit"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Quality">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="QualityName"/>
+				<xs:element ref="ApplicableAttributes"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ApplicableAttributes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Attribute"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Role">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RoleName"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
