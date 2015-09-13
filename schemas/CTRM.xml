@@ -1,41 +1,42 @@
+<!-- edited with XMLSpy v2015 rel. 3 (http://www.altova.com) by Swaroop Chalasani (FAIR ISAAC CORPORATION ROSEDALE CORPORATION  PLAZA) -->
 <CTRM>
-	<OrganizationName>text</OrganizationName>
+	<OrganizationName>Acme Trading Company </OrganizationName>
 	<OrganizationStructures>
 		<Users>
 			<User>
 				<UserName>text</UserName>
 				<ApplicableRoles>
 					<Role>
-						<RoleName>text</RoleName>
+						<RoleName>Trader</RoleName>
 					</Role>
 				</ApplicableRoles>
 			</User>
 		</Users>
 		<Roles>
 			<Role>
-				<RoleName>text</RoleName>
+				<RoleName>Trader</RoleName>
 			</Role>
 		</Roles>
 		<OganizationalUnits>
 			<CorporateUnit>
-				<BaseCurrency>text</BaseCurrency>
+				<BaseCurrency>USD</BaseCurrency>
 				<CorporateUnitName>text</CorporateUnitName>
-				<IsProfitCenter>text</IsProfitCenter>
+				<IsProfitCenter>true</IsProfitCenter>
 				<EODMeasures>text</EODMeasures>
 				<AddressLocation>
-					<line1>text</line1>
+					<line1>1600 Pennsylvanian Street</line1>
 					<line2>text</line2>
 					<line3>text</line3>
-					<city>text</city>
-					<state>text</state>
-					<country>text</country>
+					<city>Washington D.C</city>
+					<state>Washington D.C</state>
+					<country>USA</country>
 					<postalCode>text</postalCode>
 				</AddressLocation>
 			</CorporateUnit>
 			<CorporateUnit>
-				<BaseCurrency>text</BaseCurrency>
+				<BaseCurrency>AUD</BaseCurrency>
 				<CorporateUnitName>text</CorporateUnitName>
-				<IsProfitCenter>text</IsProfitCenter>
+				<IsProfitCenter>true</IsProfitCenter>
 				<EODMeasures>text</EODMeasures>
 				<AddressLocation>
 					<line1>text</line1>
