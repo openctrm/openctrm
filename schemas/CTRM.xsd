@@ -1,3 +1,4 @@
+<!-- edited with XMLSpy v2015 rel. 3 (http://www.altova.com) by Swaroop Chalasani (FAIR ISAAC CORPORATION ROSEDALE CORPORATION  PLAZA) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
 	<xs:element name="CTRM">
 		<xs:annotation>
@@ -6,9 +7,30 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="OrganizationName" minOccurs="0"/>
-				<xs:element name="OrganizationStructures" minOccurs="0">
+				<xs:element name="MasterData" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
+							<xs:element name="OganizationalUnits" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="CorporateUnit" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Products" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="Product" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Facilities" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="Facility" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
 							<xs:element name="Users" minOccurs="0">
 								<xs:complexType>
 									<xs:sequence>
@@ -36,31 +58,10 @@
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="OganizationalUnits" minOccurs="0">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element ref="CorporateUnit" maxOccurs="unbounded"/>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="Products" minOccurs="0">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element ref="Product" maxOccurs="unbounded"/>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="Facilities" minOccurs="0">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element ref="Facility" minOccurs="0"/>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="OrderBook" minOccurs="0">
+				<xs:element name="TradeBook" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element ref="PhysicalTrade" minOccurs="0" maxOccurs="unbounded"/>
@@ -128,6 +129,61 @@
 							</xs:element>
 							<xs:element name="MarketRisk" minOccurs="0"/>
 							<xs:element name="CreditRisk" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Analytics" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PositionSummary" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="PositionSummaryByPeriod" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="PeriodFromDate"/>
+													<xs:element name="PeriodToDate"/>
+													<xs:element name="ProductName"/>
+													<xs:element name="QuantityUnit"/>
+													<xs:element name="OpenPurchaseQuantity"/>
+													<xs:element name="OpenSaleQuantity"/>
+													<xs:element name="StockQuantity"/>
+													<xs:element name="NetQuantity"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="PositionSummaryByLocation" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="PositionSummaryByCorporateUnit" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ProfitAndLossSummary" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="CorporateUnit"/>
+										<xs:element name="Currency"/>
+										<xs:element name="PhysicalTradeValue"/>
+										<xs:element name="DerivativeTradeValue"/>
+										<xs:element name="FXTradeValue"/>
+										<xs:element name="TotalChangeInValue"/>
+										<xs:element name="ProfiltAndLossByAttribution">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="PeriodFrom"/>
+													<xs:element name="PeriodThru"/>
+													<xs:element name="ByNewAndCancelled"/>
+													<xs:element name="ByPrices"/>
+													<xs:element name="ByQuantity"/>
+													<xs:element name="BySecondaryCost"/>
+													<xs:element name="ByFXRate"/>
+													<xs:element name="ByRealizationImpact"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="RiskExposureSummary" minOccurs="0"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -283,6 +339,32 @@
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
+							<xs:element name="ValuationDetail">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ValuationINCOTerm"/>
+										<xs:element name="ValuationLocation"/>
+										<xs:element name="ValuationPriceCurve"/>
+										<xs:element name="BasisValuationMonth"/>
+										<xs:element name="ExchangeValuationMonth"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="HedgeDetail">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="TradeReferenceNumber"/>
+										<xs:element name="FinancialInstrumentId"/>
+										<xs:element name="BuyOrSellType"/>
+										<xs:element name="PromptOrDeliveryMonth"/>
+										<xs:element name="AllocatedQuantity"/>
+										<xs:element name="UnallocatedQuantity"/>
+										<xs:element name="AllocatedAmount"/>
+										<xs:element name="UnallocatedAmount"/>
+										<xs:element name="InstrumentCurrency"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -293,11 +375,7 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="LogisticActivities">
-					<xs:complexType>
-						<xs:sequence/>
-					</xs:complexType>
-				</xs:element>
+				<xs:element ref="Logistics"/>
 				<xs:element name="Accounting">
 					<xs:complexType>
 						<xs:sequence>
@@ -336,12 +414,12 @@
 				<xs:element name="InstrumentName" minOccurs="0"/>
 				<xs:element name="InstrumentType"/>
 				<xs:element name="ExchangeUnit"/>
-				<xs:element name="PriceAmountUnit"/>
-				<xs:element name="PricingData" maxOccurs="unbounded">
+				<xs:element name="PricingBySource" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="PriceDate" type="xs:dateTime"/>
 							<xs:element name="PriceAmount" type="xs:decimal"/>
+							<xs:element name="PriceAmountUnit"/>
 							<xs:element name="PriceSource"/>
 						</xs:sequence>
 					</xs:complexType>
@@ -382,7 +460,13 @@
 																<xs:element name="PriceUnit"/>
 																<xs:element name="TotalValueAmount"/>
 																<xs:element name="TotalValueAmountCurrency"/>
-																<xs:element ref="CostComponents"/>
+																<xs:element name="CostEstimates">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element ref="CostComponents"/>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
